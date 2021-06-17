@@ -1,0 +1,6 @@
+httpdata:
+  host: "127.0.0.1"
+  port: 8080
+  maxHeaderBytes: 1
+  readTimeout: 10s
+  writeTimeout: 10s
