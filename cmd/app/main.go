@@ -5,10 +5,10 @@ import (
 	"wiltonassessment/internal/app"
 )
 
-const cfgFile = "configs/serverconfig.yml"
+const cfgFile = "configs/srvconfig.yml"
 
 func main() {
 	if err := app.Run(cfgFile); err != nil {
-		log.Println(err.Error())
+		log.Fatal(err)
 	}
 }
