@@ -1,11 +1,7 @@
 package cond
 
 import (
-	"encoding/json"
-	"errors"
-	"io/ioutil"
 	"log"
-	"net/http"
 )
 
 const (
@@ -19,12 +15,12 @@ type (
 	condMap map[byte]map[string]fn
 
 	Input struct {
-		A bool    `json:"A"`
-		B bool    `json:"B"`
-		C bool    `json:"C"`
-		D float64 `json:"D"`
-		E int     `json:"E"`
-		F int     `json:"F"`
+		A bool    `json:"a"`
+		B bool    `json:"b"`
+		C bool    `json:"c"`
+		D float64 `json:"d"`
+		E int     `json:"e"`
+		F int     `json:"f"`
 	}
 
 	Cond struct {
@@ -81,29 +77,9 @@ func dataProceeding(i *Input) error {
 	if res, ok := precond.Map[mask]; ok {
 		for key, val := range res {
 			(*out).H, (*out).K = key, val(i.D, i.E, i.F)
+			log.Println(out)
 			return nil
 		}
 	}
-	return errors.New("There is no a scheme for a given input")
-}
-
-func GetInputData(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		i := &Input{}
-		body, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			http.Error(w, "Error reading request body", http.StatusInternalServerError)
-		}
-		err = json.Unmarshal(body, &i)
-		if err != nil {
-			http.Error(w, "Error unmarshaling body", http.StatusInternalServerError)
-		}
-
-		if err = dataProceeding(i); err != nil {
-			log.Fatal(err)
-		}
-
-	} else {
-		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-	}
+	return nil
 }
