@@ -14,10 +14,11 @@ type (
 	}
 
 	HTTPConfig struct {
-		Host         string        `yaml:"host"`
-		Port         string        `yaml:"port"`
-		ReadTimeout  time.Duration `yaml:"readTimeout"`
-		WriteTimeout time.Duration `yaml:"writeTimeout"`
+		Host           string        `yaml:"host"`
+		Port           string        `yaml:"port"`
+		ReadTimeout    time.Duration `yaml:"readTimeout"`
+		WriteTimeout   time.Duration `yaml:"writeTimeout"`
+		MaxHeaderBytes int           `yaml:"maxHeaderBytes"`
 	}
 )
 
