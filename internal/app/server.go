@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"wiltonassessment/internal/config"
 )
@@ -27,5 +28,9 @@ func (s *Server) Run() error {
 }
 
 func (s *Server) Stop(ctx context.Context) error {
-	return s.httpServer.Shutdown(ctx)
+	if err := s.httpServer.Shutdown(ctx); err != nil {
+		log.Printf("Error shutting down server: %v\n", err)
+		return err
+	}
+	return nil
 }
